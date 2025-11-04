@@ -1,0 +1,104 @@
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import numpy as np
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+import numpy as np
+import os
+import rasterio as rio
+from rasterio.plot import reshape_as_image, reshape_as_raster
+from pathlib import Path
+from osgeo import ogr, gdal
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from matplotlib.colors import ListedColormap
+
+def apply_mask(image):
+    mask_norm = np.all((image >= 0) & (image <= 1), axis=2)
+    mask_zero = np.all(image == 0, axis=2)
+    image[(~mask_norm) | (mask_zero)] = np.nan
+    image = reshape_as_raster(image)
+    return image
+
+print("test")
+image_path = r'C:\Users\arman\Desktop\INSA Toulouse\5A\PIR\Données\SENTINEL2B_20240410-112055-466_L2A_T29SQB_C_V3-1_FRE_extrait_stack_gain_VNIR10.img'
+raster_img = rio.open(image_path)
+arr_img = reshape_as_image(raster_img.read())
+image = apply_mask(arr_img) # mask to delete bad pixels
+
+l, m, n = image.shape # check the size of the image 
+print("Size of the image is "+str(l)+"x"+str(m)+"x"+str(n))
+
+X = image.reshape(l, -1).T
+
+scaling = 1
+if (scaling==1):
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+else:
+    X_scaled = X
+
+comparison = 0
+
+if (comparison==1):
+
+        # --- Liste des k à tester
+    k_values = [3, 5, 7, 9]
+
+    # --- Définir une colormap fixe (ex : 10 couleurs maximum)
+    colors = plt.cm.tab10(np.linspace(0, 1, 10))
+    global_cmap = ListedColormap(colors)
+
+    # --- Créer les segmentations pour chaque k
+    labels_images = {}
+
+    for k in k_values:
+        kmeans = KMeans(n_clusters=k, random_state=42)
+        labels = kmeans.fit_predict(X_scaled)
+        labels_images[k] = labels.reshape(m, n)
+
+    fig, axes = plt.subplots(1, len(k_values), figsize=(4*len(k_values), 4))
+
+    for i, k in enumerate(k_values):
+        ax = axes[i]
+        im = ax.imshow(labels_images[k], cmap=global_cmap, vmin=0, vmax=max(k_values)-1)
+        ax.set_title(f"k = {k}")
+        ax.axis('off')
+
+    plt.suptitle("Comparaison des segmentations K-Means (code couleur constant)", fontsize=14)
+    plt.tight_layout()
+    plt.show()
+
+else:
+
+    inertias = []
+    K_range = range(2, 15)
+
+    for k in K_range:
+        kmeans = KMeans(n_clusters=k, random_state=42)
+        kmeans.fit(X_scaled)
+        inertias.append(kmeans.inertia_)
+
+    plt.plot(K_range, inertias, marker='o')
+    plt.xlabel('Nombre de clusters k')
+    plt.ylabel('Inertie (somme des distances)')
+    plt.title('Méthode du coude')
+    plt.show()
+
+    diff = np.diff(inertias)         # premières différences
+    diff2 = np.diff(diff)            # secondes différences
+    optimal_k = K_range[np.argmin(diff2) + 1]  # +1 car diff2 a une taille réduite
+
+    print(f"k optimal (approximé par dérivée seconde) = {optimal_k}")
+
+    kmeans = KMeans(n_clusters=optimal_k, random_state=42)
+    labels = kmeans.fit_predict(X_scaled)
+
+        # Reformater les labels dans la forme spatiale de l’image
+    labels_image = labels.reshape(m, n)
+
+    plt.imshow(labels_image, cmap='tab10')
+    plt.title(f"Classification K-Means (k={optimal_k})")
+    plt.axis('off')
+    plt.show()
