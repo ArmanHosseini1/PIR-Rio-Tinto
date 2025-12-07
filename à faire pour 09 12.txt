@@ -1,4 +1,4 @@
-K-means sur SENTINEL-2 et hyperspectral
+K-means sur SENTINEL-2 et hyperspectral | fait
 
 changer l'image mettre celle à 10 bandes et regarder les résultats des cellules | fait
 
@@ -13,3 +13,5 @@ Faire CAH pour nombre de classes sur sol / végétation / reste ? | ne marche pa
 AE conv2D avec couche de clustering?
 
 Changer le CNN pour prendre en compte la remarque 2 de Mme Leon-Lopez
+
+Avancer le rapport?
