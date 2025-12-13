@@ -1,0 +1,10 @@
+A faire pour 16/12 :
+
+- à quoi correspondent les deux clusters issus de CDH d'un point de vue spectral. Matrice de confusion par rapport aux pixels de la "ground Truth"
+- comparer spectre issu de K-means et sortie de AE Conv2D
+- tester sur tous les pixels sur Conv2D (y compris les "invalides")
+- accuracy par rapport à la Ground Truth en + d'ARI après mise en correspondance des clusters
+- normalisation entre 0 et 1 pour les graphes spectraux
+- pas passer bcp de temps pour AE Conv2D avec propagation différente de l'info vote majoritaire, priorité : couche de clustering
+- faire un résumé pour Sophie (qui n'était pas là) : reprendre les slides d'avant
+- avancer le rapport : mettre les résultats "définitifs" et reprendre état de l'art

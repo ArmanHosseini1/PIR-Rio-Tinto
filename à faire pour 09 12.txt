@@ -1,10 +1,12 @@
-K-means sur SENTINEL-2 et hyperspectral | fait
+K-means sur SENTINEL-2 et hyperspectral
 
 changer l'image mettre celle à 10 bandes et regarder les résultats des cellules | fait
 
 graphes spectraux : x longueurs d'onde, y valeurs moyennes de réflectance brutes (avant scaling) | fait
 
-Obtenir score silhouette sur Conv2D sol / végétation / reste. Pour la végétation SENTINEL-2, on a une ground Truth, l'utiliser pour comparer les résultats des méthodes.
+Obtenir score silhouette sur Conv2D sol / végétation / reste.  | Comment comparer score silhouette? dans l'espace latent ou de base?
+
+Pour la végétation SENTINEL-2, on a une ground Truth, l'utiliser pour comparer les résultats des méthodes.
 
 Après, comparaison score silhouette : calculer sur toute l'image avec K = 50 par ex. CNN conv2D.
 
@@ -13,5 +15,3 @@ Faire CAH pour nombre de classes sur sol / végétation / reste ? | ne marche pa
 AE conv2D avec couche de clustering?
 
 Changer le CNN pour prendre en compte la remarque 2 de Mme Leon-Lopez
-
-Avancer le rapport?
