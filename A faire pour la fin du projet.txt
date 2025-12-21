@@ -1,0 +1,10 @@
+A faire pour la fin du projet :
+
+- comparer spectres issus de K-means et sortie de AE Conv2D (nécessite GPU)
+- accuracy par rapport à la Ground Truth en + d'ARI après mise en correspondance des clusters (nécessite GPU)
+- mettre en place l'AE avec couche de clustering
+- avancer le rapport : mettre les résultats "définitifs" et reprendre état de l'art
+- tester l'AE avec couche de clustering (nécessite GPU)
+- modifier les architectures jusqu'à avoir des résultats cohérents pour la Ground Truth et le critère Silhouette (nécessite GPU)
+- tester les méthodes sur les images entières et voir les résultats obtenus (nécessite GPU)
+- finir le rapport
