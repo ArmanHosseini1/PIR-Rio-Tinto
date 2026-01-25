@@ -1,0 +1,1 @@
+Pour la présentation : rajouter du contexte par rapport aux passive-optical images (erreurs, correction), expliquer pk c'est compliqué de les traiter (parler du pré-traitement)

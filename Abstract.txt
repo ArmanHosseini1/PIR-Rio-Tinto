@@ -1,0 +1,12 @@
+Dans le cadre de notre projet réalisé avec des tuteurs de l'ONERA, nous avons exploré l'apprentissage auto-supervisé pour le clustering des sols et de la végétation sur le site minier pollué de Rio Tinto (Espagne). L'objectif principal était d'obtenir des résultats de clustering satisfaisants malgré l'absence d'annotation manuelle.
+
+Nous avons exploité deux sources d'imagerie optique passive : une image multispectrale fournie par le satellite SENTINEL-2B et une image hyper-spectrale issue du satellite EnMAP. Après un pré-traitement incluant un masquage spécifique pour séparer la végétation et les sols, plusieurs stratégies de clustering ont été comparées :
+
+- l'algorithme K-Means appliqué directement sur les données
+- un auto-encodeur (AE) pixel-par-pixel suivi d'un K-Means sur l'espace latent
+- un AE Convolutif 2D suivi d'un K-Means sur l'espace latent
+- une méthode simple de Deep Embedded Clustering (DEC), optimisant la reconstruction de l'image et le clustering
+
+Bien que le K-Means simple obtienne le meilleur score Silhouette, il est moins précis pour l'identification. En effet, en comparant avec une vérité terrain partielle sur la végétation de l'image SENTINEL-2, les méthodes utilisant des AE surpassent le K-Means. Enfin, notre modèle DEC a sous-performé, probablement en raison d'une architecture trop simple.
+
+En conclusion, l'approche hybride, consistant à utiliser un AE avant d'appliquer une technique de clustering classique, s'avère être la solution la plus robuste.
