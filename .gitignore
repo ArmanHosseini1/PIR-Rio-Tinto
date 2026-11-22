@@ -1,0 +1,9 @@
+DataRep/
+*.tif
+*.img
+*.hdr
+*.aux.xml
+*.log
+*.qml
+*.qgz
+.ipynb_checkpoints/
