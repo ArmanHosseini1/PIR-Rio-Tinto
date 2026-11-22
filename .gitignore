@@ -1,4 +1,5 @@
 DataRep/
+DataRep/
 *.tif
 *.img
 *.hdr
@@ -6,11 +7,5 @@ DataRep/
 *.log
 *.qml
 *.qgz
-*/*.tif
-*/*.img
-*/*.hdr
-*/*.aux.xml
-*/*.log
-*/*.qml
-*/*.qgz
 .ipynb_checkpoints/
+.virtual_documents/
